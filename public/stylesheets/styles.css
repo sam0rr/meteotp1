@@ -1,15 +1,19 @@
 body {
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
-    background-color: #0e0e0eaa;
+    background-color: #004080;
     background-blend-mode: darken;
     color: #fff;
     position: relative;
+    background-image: url('../images/background.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 main {
     padding-top: 6rem;
-    padding-bottom: 2rem;
+    padding-bottom: 4rem;
 }
 
 footer {
