@@ -21,13 +21,11 @@ export class WeatherInfo {
                 return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             };
 
-            // Fetching the correct current weather humidity
             const currentWeather = {
                 temperature: weatherData?.current_weather?.temperature || 'N/A',
-                humidity: weatherData?.current_weather?.relative_humidity_2m_max || 'N/A',
+                humidity: weatherData?.daily?.relative_humidity_2m_max?.[0] || 'N/A',
                 windspeed: weatherData?.current_weather?.windspeed || 'N/A',
                 winddirection: weatherData?.current_weather?.winddirection || 'N/A',
-                // Trimming the sunrise and sunset times
                 sunrise: weatherData?.daily?.sunrise?.[0] ? formatTime(weatherData.daily.sunrise[0]) : 'N/A',
                 sunset: weatherData?.daily?.sunset?.[0] ? formatTime(weatherData.daily.sunset[0]) : 'N/A',
                 timezone: weatherData?.timezone || 'N/A',
@@ -51,14 +49,12 @@ export class WeatherInfo {
             const formatDateTime = (dateTimeString) => {
                 const date = new Date(dateTimeString);
                 const formattedDate = date.toLocaleDateString(); // Get the date
-                const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Get time without seconds
+                const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                 return { formattedDate, formattedTime };
             };
 
-            // Extract formatted date and time
             const { formattedDate, formattedTime } = formatDateTime(weatherData?.current_weather?.time);
             
-            // Pass all data including formattedDate and formattedTime
             const cityItem = generateWeatherLayout(
                 id, 
                 name, 
@@ -71,7 +67,6 @@ export class WeatherInfo {
                 currentWeather.elevation
             );
             
-            // Insert the generated weather layout
             this.resultContainer.insertAdjacentHTML('beforeend', cityItem);
         } catch (error) {
             console.error(`Error fetching weather data for ${name}:`, error);
